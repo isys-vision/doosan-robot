@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.5)
 project(dsr_control)
 
 find_package(catkin REQUIRED COMPONENTS
+  actionlib
+  actionlib_msgs
   dsr_msgs
   controller_manager
   hardware_interface
