@@ -6,7 +6,7 @@
 	<xacro:include filename="$(find dsr_description)/config/macro.materials.xacro" />
 	<xacro:macro name="a0509" params="namespace">
 		<xacro:dsr_materials />
-		<link name="base_0">
+		<link name="base_link">
 			<inertial>
 				<mass value="2.198"/>
 				<origin xyz="-1e-06   -0.001096    0.058957"/>
@@ -23,7 +23,7 @@
 		</link>
 		<!-- joint 1 -->
 		<joint name="joint1" type="revolute">
-			<parent link="base_0" />
+			<parent link="base_link" />
 			<child link="link1" />
 			<origin rpy="0 0 0" xyz="0 0 0.1555" />
 			<axis xyz="0 0 1" />
