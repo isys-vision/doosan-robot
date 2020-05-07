@@ -1,7 +1,7 @@
 # by bcc
 controller_manager_ns: /
 controller_list:
- - name: dsr_joint_trajectory_controller
+ - name: dsr01m1013/dsr_joint_trajectory_controller
    action_ns: follow_joint_trajectory
    type: FollowJointTrajectory
    default: true
