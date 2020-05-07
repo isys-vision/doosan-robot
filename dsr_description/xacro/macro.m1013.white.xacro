@@ -4,9 +4,9 @@
   <xacro:include filename="$(find dsr_description)/config/macro.gazebo.xacro" />
   <xacro:include filename="$(find dsr_description)/config/macro.transmission.xacro" />
   <xacro:include filename="$(find dsr_description)/config/macro.materials.xacro" />
-  <xacro:macro name="m1013" params="namespace">
+  <xacro:macro name="m1013" params="prefix:='' namespace:=''">
     <xacro:dsr_materials />
-    <link name="base_0">
+    <link name="${prefix}base_link">
       <inertial>
         <mass value="4.12"/>
         <origin xyz="-3.4e-05   -0.004815    0.048482"/>
@@ -27,15 +27,15 @@
       </collision>
     </link>
     <!-- joint 1 -->
-    <joint name="joint1" type="revolute">
-      <parent link="base_0" />
-      <child link="link1" />
+    <joint name="${prefix}joint1" type="revolute">
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}link1" />
       <origin rpy="0 0 0" xyz="0 0 0.1525" />
       <axis xyz="0 0 1" />
       <limit effort="346" lower="-6.2832" upper="6.2832" velocity="2.0944"/>
       <dynamics friction="0" />
     </joint>
-    <link name="link1">
+      <link name="${prefix}link1">
       <inertial>
         <mass value="7.8"/>
         <origin xyz="0.000119      0.0428   -0.006383"/>
@@ -56,15 +56,15 @@
       </collision>
     </link>
     <!-- joint2 -->
-    <joint name="joint2" type="revolute">
-      <parent link="link1" />
-      <child link="link2" />
+    <joint name="${prefix}joint2" type="revolute">
+      <parent link="${prefix}link1" />
+      <child link="${prefix}link2" />
       <origin rpy="0 -${pi/2} -${pi/2}" xyz="0 0.0345 0" />
       <axis xyz="0 0 1" />
       <limit effort="346" lower="-6.2832" upper="6.2832" velocity="2.0944"/>
       <dynamics friction="0" />
     </joint>
-    <link name="link2">
+    <link name="${prefix}link2">
       <inertial>
         <mass value="10.83"/>
         <origin xyz="0.25973    -5.3e-05     0.15782"/>
@@ -105,15 +105,15 @@
       </collision>
     </link>
     <!-- joint3 -->
-    <joint name="joint3" type="revolute">
-      <parent link="link2" />
-      <child link="link3" />
+    <joint name="${prefix}joint3" type="revolute">
+      <parent link="${prefix}link2" />
+      <child link="${prefix}link3" />
       <origin rpy="0 0 ${pi/2}" xyz="0.62 0 0" />
       <axis xyz="0 0 1" />
       <limit effort="163" lower="-2.7925" upper="2.7925" velocity="3.1416"/>
       <dynamics friction="0" />
     </joint>
-    <link name="link3">
+    <link name="${prefix}link3">
       <inertial>
         <mass value="3.68"/>
         <origin xyz="-1.5e-05   -0.006702    0.044608"/>
@@ -134,15 +134,15 @@
       </collision>
     </link>
     <!-- joint4 -->
-    <joint name="joint4" type="revolute">
-      <parent link="link3" />
-      <child link="link4" />
+    <joint name="${prefix}joint4" type="revolute">
+      <parent link="${prefix}link3" />
+      <child link="${prefix}link4" />
       <origin rpy="${pi/2} 0 0" xyz="0 -0.559 0" />
       <axis xyz="0 0 1" />
       <limit effort="50" lower="-6.2832" upper="6.2832" velocity="3.927"/>
       <dynamics friction="0" />
     </joint>
-    <link name="link4">
+    <link name="${prefix}link4">
       <inertial>
         <mass value="3.82"/>
         <origin xyz="7.1e-05    0.091879    -0.18252"/>
@@ -172,15 +172,15 @@
       </collision>
     </link>
     <!-- joint5 -->
-    <joint name="joint5" type="revolute">
-      <parent link="link4" />
-      <child link="link5" />
+    <joint name="${prefix}joint5" type="revolute">
+      <parent link="${prefix}link4" />
+      <child link="${prefix}link5" />
       <origin rpy="-${pi/2} 0 0" xyz="0 0 0" />
       <axis xyz="0 0 1" />
       <limit effort="50" lower="-6.2832" upper="6.2832" velocity="3.927"/>
       <dynamics friction="0" />
     </joint>
-    <link name="link5">
+    <link name="${prefix}link5">
       <inertial>
         <mass value="2.82"/>
         <origin xyz="-0.000273    0.003651    0.032088"/>
@@ -201,15 +201,15 @@
       </collision>
     </link>
     <!-- joint6 -->
-    <joint name="joint6" type="revolute">
-      <parent link="link5" />
-      <child link="link6" />
+    <joint name="${prefix}joint6" type="revolute">
+      <parent link="${prefix}link5" />
+      <child link="${prefix}link6" />
       <origin rpy="${pi/2} 0 0" xyz="0 -0.121 0" />
       <axis xyz="0 0 1" />
       <limit effort="50" lower="-6.2832" upper="6.2832" velocity="3.927"/>
       <dynamics friction="0" />
     </joint>
-    <link name="link6">
+    <link name="${prefix}link6">
       <inertial>
         <mass value="1.16"/>
         <origin xyz="-0.000292       7e-06     -0.0539"/>
@@ -229,6 +229,31 @@
         </geometry>
       </collision>
     </link>
+                
+    <!-- TODO ROS base_link to Doosan Coordinates transform -->
+    <link name="${prefix}base" />
+    <joint name="${prefix}base_link-base" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="${prefix}base_link"/>
+    <child link="${prefix}base"/>
+    </joint>
+
+    <!-- TODO ROS-Industrial 'flange' frame: attachment point for EEF models -->
+    <link name="${prefix}flange" />
+    <joint name="${prefix}joint6-flange" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="${prefix}link6" />
+    <child link="${prefix}flange" />
+    </joint>
+                
+    <!-- TODO ROS-Industrial 'tool0' frame: all-zeros tool frame -->
+    <link name="${prefix}tool0" />
+    <joint name="${prefix}link6-tool0" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="${prefix}flange" />
+      <child link="${prefix}tool0" />
+    </joint>
+        
     <xacro:dsr_transmission />
     <xacro:dsr_gazebo namespace="${namespace}" />
   </xacro:macro>
