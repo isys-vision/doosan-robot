@@ -196,7 +196,9 @@
 #include <moveit_msgs/RobotTrajectory.h>
 #include <trajectory_msgs/JointTrajectory.h>
 #include <trajectory_msgs/JointTrajectoryPoint.h>
-#include <control_msgs/FollowJointTrajectoryActionGoal.h>
+#include <control_msgs/FollowJointTrajectoryAction.h>
+#include <actionlib/server/simple_action_server.h>
+
 
 ///#include "DRFL.h"
 #include "../../../common/include/DRFL.h"
@@ -537,6 +539,9 @@ namespace dsr_control{
         ros::Subscriber m_SubSerialRead;
         ros::Subscriber m_sub_jog_multi_axis;
 
+        actionlib::SimpleActionServer<control_msgs::FollowJointTrajectoryAction> m_as_follow_trajectory;
+
+
         // ROS Interface
         hardware_interface::JointStateInterface jnt_state_interface;
         hardware_interface::PositionJointInterface jnt_pos_interface;
@@ -555,7 +560,7 @@ namespace dsr_control{
         //----- SIG Handler --------------------------------------------------------------
         void sigint_handler( int signo);
 
-        void trajectoryCallback(const control_msgs::FollowJointTrajectoryActionGoal::ConstPtr& msg);
+        void trajectoryCallback(const control_msgs::FollowJointTrajectoryGoalConstPtr& goal);
         void positionCallback(const std_msgs::Float64MultiArray::ConstPtr& msg);
 
         void jogCallback(const dsr_msgs::JogMultiAxis::ConstPtr& msg);

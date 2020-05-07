@@ -644,7 +644,11 @@ namespace dsr_control{
         }
     }  
 
-    DRHWInterface::DRHWInterface(ros::NodeHandle& nh):private_nh_(nh)
+    DRHWInterface::DRHWInterface(ros::NodeHandle& nh):
+        private_nh_(nh),
+        m_as_follow_trajectory(nh, "dsr_joint_trajectory_controller/follow_joint_trajectory",
+                               boost::bind(&DRHWInterface::trajectoryCallback, this, _1),
+                               false)
     {
         /*
         <arg name="ns"    value="$(arg ns)"/>
@@ -704,11 +708,12 @@ namespace dsr_control{
 
         // gazebo에 joint position 전달
         m_PubtoGazebo = private_nh_.advertise<std_msgs::Float64MultiArray>("/dsr_joint_position_controller/command",10);
-        // moveit의 trajectory/goal를 받아 제어기로 전달
-        m_sub_joint_trajectory = private_nh_.subscribe("dsr_joint_trajectory_controller/follow_joint_trajectory/goal", 10, &DRHWInterface::trajectoryCallback, this);
+
         // topic echo 명령으로 제어기에 전달
         m_sub_joint_position = private_nh_.subscribe("dsr_joint_position_controller/command", 10, &DRHWInterface::positionCallback, this);
         
+        m_as_follow_trajectory.start();
+
         ros::NodeHandle nh_temp;
         m_SubSerialRead = nh_temp.subscribe("serial_read", 100, &Serial_comm::read_callback, &ser_comm);
         m_PubSerialWrite = nh_temp.advertise<std_msgs::String>("serial_write", 100);
@@ -1052,11 +1057,11 @@ namespace dsr_control{
 
     }
 
-    void DRHWInterface::trajectoryCallback(const control_msgs::FollowJointTrajectoryActionGoal::ConstPtr& msg)
+    void DRHWInterface::trajectoryCallback(const control_msgs::FollowJointTrajectoryGoalConstPtr& goal)
     {
         ROS_INFO("callback: Trajectory received");
-        ROS_INFO("  msg->goal.trajectory.points.size() =%d",(int)msg->goal.trajectory.points.size());   //=10 가변젹 
-        ROS_INFO("  msg->goal.trajectory.joint_names.size() =%d",(int)msg->goal.trajectory.joint_names.size()); //=6
+        ROS_INFO("  goal->trajectory.points.size() =%d",(int)goal->trajectory.points.size());   //=10 가변젹
+        ROS_INFO("  goal->trajectory.joint_names.size() =%d",(int)goal->trajectory.joint_names.size()); //=6
 
         float preTargetTime = 0.0;
         float targetTime = 0.0;
@@ -1064,43 +1069,46 @@ namespace dsr_control{
         float fTargetPos[MAX_SPLINE_POINT][NUM_JOINT] = {0.0, };
         int nCntTargetPos =0; 
 
-        nCntTargetPos = msg->goal.trajectory.points.size();
+        nCntTargetPos = goal->trajectory.points.size();
         if(nCntTargetPos > MAX_SPLINE_POINT)
         {
-            ROS_INFO("DRHWInterface::trajectoryCallback over max Trajectory (%d > %d)",nCntTargetPos ,MAX_SPLINE_POINT);
+            ROS_ERROR("DRHWInterface::trajectoryCallback over max Trajectory (%d > %d)",nCntTargetPos ,MAX_SPLINE_POINT);
+            m_as_follow_trajectory.setAborted();
             return; 
         }
 
-        for(int i = 0; i < msg->goal.trajectory.points.size(); i++) //=10
+        for(int i = 0; i < goal->trajectory.points.size(); i++) //=10
         {
             std::array<float, NUM_JOINT> degrees;
-            ros::Duration d(msg->goal.trajectory.points[i].time_from_start);    
+            ros::Duration d(goal->trajectory.points[i].time_from_start);
 
-            //ROS_INFO("  msg->goal.trajectory.points[%d].time_from_start = %7.3%f",i,(float)msg->goal.trajectory.points[i].time_from_start );  
+            //ROS_INFO("  goal->trajectory.points[%d].time_from_start = %7.3%f",i,(float)goal->trajectory.points[i].time_from_start );
 
             targetTime = d.toSec();
             ///ROS_INFO("[trajectory] preTargetTime: %7.3f", preTargetTime);
             ///targetTime = targetTime - preTargetTime;
             ///preTargetTime = targetTime;
-            ///ROS_INFO("[trajectory] time_from_start: %7.3f", targetTime);
+            ///ROS_INFO("[trajectory] time_from_last: %7.3f", targetTime);
 
             ROS_INFO("[trajectory] [%02d : %.3f] %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f",i ,targetTime
-                ,rad2deg(msg->goal.trajectory.points[i].positions[0]) ,rad2deg(msg->goal.trajectory.points[i].positions[1]), rad2deg(msg->goal.trajectory.points[i].positions[2])
-                ,rad2deg(msg->goal.trajectory.points[i].positions[3]) ,rad2deg(msg->goal.trajectory.points[i].positions[4]), rad2deg(msg->goal.trajectory.points[i].positions[5]) );
+                ,rad2deg(goal->trajectory.points[i].positions[0]) ,rad2deg(goal->trajectory.points[i].positions[1]), rad2deg(goal->trajectory.points[i].positions[2])
+                ,rad2deg(goal->trajectory.points[i].positions[3]) ,rad2deg(goal->trajectory.points[i].positions[4]), rad2deg(goal->trajectory.points[i].positions[5]) );
 
-            for(int j = 0; j < msg->goal.trajectory.joint_names.size(); j++)    //=6    
+            for(int j = 0; j < goal->trajectory.joint_names.size(); j++)    //=6
             {
-                //ROS_INFO("[trajectory] %d-pos: %7.3f", j, msg->goal.trajectory.points[i].positions[j]);
+                //ROS_INFO("[trajectory] %d-pos: %7.3f", j, goal->trajectory.points[i].positions[j]);
                 /* todo
                 get a position & time_from_start
                 convert radian to degree the position
                 run MoveJ(position, time_From_start)
                 */
-                degrees[j] = rad2deg( msg->goal.trajectory.points[i].positions[j] );
+                degrees[j] = rad2deg( goal->trajectory.points[i].positions[j] );
 
                 fTargetPos[i][j] = degrees[j];
 
             }
+
+            ///Drfl.MoveJ(fTargetPos[i], 0.0, 0.0, targetTime, MOVE_MODE_ABSOLUTE, 0.f, BLENDING_SPEED_TYPE_DUPLICATE);
         }
         Drfl.MoveSJ(fTargetPos, nCntTargetPos, 0.0, 0.0, targetTime, (MOVE_MODE)MOVE_MODE_ABSOLUTE);
 
@@ -1111,6 +1119,37 @@ namespace dsr_control{
             cmd_[i] = joints[i].cmd;
         }
         */
+
+//        // Currently not required: Wait for robot to reach target position
+//        const float epsilon = 0.01; // [deg]
+//        ros::Duration maxWait(4.0);
+//        ros::Time startWaitTime = ros::Time::now();
+//        bool targetReached = false;
+//        float targetVal, jointDist;
+//        LPROBOT_POSE pose;
+
+//        while (!targetReached) {
+//            ros::Duration elapsedTimeTimeout = ros::Time::now() - startWaitTime;
+//            if (elapsedTimeTimeout > maxWait) {
+//                ROS_ERROR_STREAM("[DRHWInterface::traj] Waiting to reach target timed out.");
+//                break;
+//            }
+
+//            pose = Drfl.GetCurrentPose();
+//            targetReached = true;
+//            for(int i = 0; i < NUM_JOINT; i++){
+//                targetVal = fTargetPos[goal->trajectory.points.size()-1][i];
+//                jointDist = fabs(targetVal - pose->_fPosition[i]);
+//                if (jointDist > epsilon) {
+//                    ROS_ERROR_STREAM("[DRHWInterface::traj] Waiting to reach target: joint " << i << " dist: " << jointDist
+//                                     << ", pos: " << pose->_fPosition[i] << ", target: " << targetVal);
+//                    targetReached = false;
+//                    break;
+//                }
+//            }
+//        }
+        m_as_follow_trajectory.setSucceeded();
+
     }
 
     //----- SYSTEM Service Call-back functions ------------------------------------------------------------
