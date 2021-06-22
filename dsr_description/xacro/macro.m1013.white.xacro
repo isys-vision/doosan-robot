@@ -15,11 +15,16 @@
           izz="0.022577"/>
       </inertial>
       <visual>
-        <origin rpy="0 0 0" xyz="0 0 0" />
+        <material name="dr_gray" />
         <geometry>
           <mesh filename="package://dsr_description/meshes/m1013_white/MF1013_0_0.dae" scale="0.001 0.001 0.001" />
         </geometry>
       </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://dsr_description/meshes/m1013_collision/MF1013_0_0.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+      </collision>
     </link>
     <!-- joint 1 -->
     <joint name="joint1" type="revolute">
@@ -38,17 +43,17 @@
           iyz="-0.0019959"
           izz="0.047056"/>
       </inertial>
-      <collision>
-        <geometry>
-          <cylinder radius="0.1" length="0.2"/>
-        </geometry>
-      </collision>
       <visual>
-        <origin rpy="0 0 0" xyz="0 0 0" />
+        <material name="dr_white" />
         <geometry>
           <mesh filename="package://dsr_description/meshes/m1013_white/MF1013_1_0.dae" scale="0.001 0.001 0.001" />
         </geometry>
       </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://dsr_description/meshes/m1013_collision/MF1013_1_0.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+      </collision>
     </link>
     <!-- joint2 -->
     <joint name="joint2" type="revolute">
@@ -67,30 +72,37 @@
           iyz="4.0201e-05"
           izz="0.85021"/>
       </inertial>
-            <collision>
-                <origin rpy="0 -1.571 0" xyz="0.3 0 0.1525" />
-                <geometry>
-                    <cylinder radius="0.08" length="0.75"/>
-                </geometry>
-            </collision>
       <visual>
-        <origin rpy="0 0 0" xyz="0 0 0" />
+        <material name="dr_white" />
         <geometry>
           <mesh filename="package://dsr_description/meshes/m1013_white/MF1013_2_0.dae" scale="0.001 0.001 0.001" />
         </geometry>
       </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://dsr_description/meshes/m1013_collision/MF1013_2_0.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+      </collision>
       <visual>
-        <origin rpy="0 0 0" xyz="0 0 0" />
         <geometry>
           <mesh filename="package://dsr_description/meshes/m1013_white/MF1013_2_1.dae" scale="0.001 0.001 0.001" />
         </geometry>
       </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://dsr_description/meshes/m1013_collision/MF1013_2_1.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+      </collision>
       <visual>
-        <origin rpy="0 0 0" xyz="0 0 0" />
         <geometry>
           <mesh filename="package://dsr_description/meshes/m1013_white/MF1013_2_2.dae" scale="0.001 0.001 0.001" />
         </geometry>
       </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://dsr_description/meshes/m1013_collision/MF1013_2_2.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+      </collision>
     </link>
     <!-- joint3 -->
     <joint name="joint3" type="revolute">
@@ -109,12 +121,17 @@
           iyz="-0.00099342"
           izz="0.011502"/>
       </inertial>
-            <visual>
-        <origin rpy="0 0 0" xyz="0 0 0" />
+      <visual>
+        <material name="dr_white" />
         <geometry>
           <mesh filename="package://dsr_description/meshes/m1013_white/MF1013_3_0.dae" scale="0.001 0.001 0.001" />
         </geometry>
       </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://dsr_description/meshes/m1013_collision/MF1013_3_0.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+      </collision>
     </link>
     <!-- joint4 -->
     <joint name="joint4" type="revolute">
@@ -132,24 +149,27 @@
         <inertia ixx="0.19063" ixy="-1.8037e-05" ixz="-3.8576e-05" iyy="0.17268" iyz="-0.052996"
           izz="0.030386"/>
       </inertial>
-            <collision>
-                <origin rpy="-0.55 0 0" xyz="0 0.07 -0.3" />
-                <geometry>
-                    <cylinder radius="0.07" length="0.4"/>
-                </geometry>
-            </collision>
       <visual>
-        <origin rpy="0 0 0" xyz="0 0 0" />
+        <material name="dr_white" />
         <geometry>
           <mesh filename="package://dsr_description/meshes/m1013_white/MF1013_4_0.dae" scale="0.001 0.001 0.001" />
         </geometry>
       </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://dsr_description/meshes/m1013_collision/MF1013_4_0.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+      </collision>
       <visual>
-        <origin rpy="0 0 0" xyz="0 0 0" />
         <geometry>
           <mesh filename="package://dsr_description/meshes/m1013_white/MF1013_4_1.dae" scale="0.001 0.001 0.001" />
         </geometry>
       </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://dsr_description/meshes/m1013_collision/MF1013_4_1.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+      </collision>
     </link>
     <!-- joint5 -->
     <joint name="joint5" type="revolute">
@@ -168,18 +188,17 @@
           iyz="0.00042553"
           izz="0.0088671"/>
       </inertial>
-            <collision>
-                <origin rpy="1.571 0 0" xyz="0 0 0" />
-                <geometry>
-                    <cylinder radius="0.08" length="0.15"/>
-                </geometry>
-            </collision>
       <visual>
-        <origin rpy="0 0 0" xyz="0 0 0" />
+        <material name="dr_white" />
         <geometry>
           <mesh filename="package://dsr_description/meshes/m1013_white/MF1013_5_0.dae" scale="0.001 0.001 0.001" />
         </geometry>
       </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://dsr_description/meshes/m1013_collision/MF1013_5_0.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+      </collision>
     </link>
     <!-- joint6 -->
     <joint name="joint6" type="revolute">
@@ -199,11 +218,16 @@
           izz="0.0061263"/>
       </inertial>
       <visual>
-        <origin rpy="0 0 0" xyz="0 0 0" />
+        <material name="dr_gray" />
         <geometry>
           <mesh filename="package://dsr_description/meshes/m1013_white/MF1013_6_0.dae" scale="0.001 0.001 0.001" />
         </geometry>
       </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://dsr_description/meshes/m1013_collision/MF1013_6_0.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+      </collision>
     </link>
     <xacro:dsr_transmission />
     <xacro:dsr_gazebo namespace="${namespace}" />
