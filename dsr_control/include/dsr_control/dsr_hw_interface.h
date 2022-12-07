@@ -226,8 +226,6 @@
 #include <dsr_msgs/WriteDataRT.h>
 
 // moveit
-#include <moveit_msgs/DisplayTrajectory.h>
-#include <moveit_msgs/RobotTrajectory.h>
 #include <trajectory_msgs/JointTrajectory.h>
 #include <trajectory_msgs/JointTrajectoryPoint.h>
 #include <control_msgs/FollowJointTrajectoryAction.h>
