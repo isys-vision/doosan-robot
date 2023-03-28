@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
 project(dsr_control)
-add_compile_options(-std=c++11)
 
 find_package(catkin REQUIRED COMPONENTS
   dsr_msgs
@@ -54,6 +53,7 @@ elseif($ENV{ROS_DISTRO} STREQUAL "melodic")
 elseif($ENV{ROS_DISTRO} STREQUAL "noetic")
   LINK_DIRECTORIES ("${COMMON_LIB_FILES}/$ENV{ROS_DISTRO}/x86_64")
 else()
+    LINK_DIRECTORIES ("${COMMON_LIB_FILES}/noetic/x86_64")
     message("Unknown ROS distro:")
     message($ENV{ROS_DISTRO})
 endif()
