@@ -1110,8 +1110,10 @@ namespace dsr_control{
                 cmd_[i] = joints[i].cmd;
             }
             return true;
-         }
-        return false;
+        } else {
+            ROS_ERROR("[dsr_hw_interface] init() ==> Drfl.open_connection failed!");   
+            return false;
+        }
     }
 
     void DRHWInterface::read(ros::Duration& elapsed_time)
