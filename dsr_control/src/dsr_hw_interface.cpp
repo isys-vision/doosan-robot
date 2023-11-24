@@ -95,9 +95,7 @@ namespace dsr_control{
         JointTrajectory traj = goal->trajectory;
 
         double maxJointDist;
-        bool interpolate = ros::param::param<double>("/robot_description_manipulators/manipulator/experimental_max_joint_position_distance", maxJointDist, 0.0);
-
-        maxJointDist *= M_PI/180.0;
+        bool interpolate = ros::param::param<double>("/robot_description_manipulators/manipulator/interpolation_max_joint_difference", maxJointDist, 0.0);
 
         if (interpolate && traj.points.size() > 2) {    // interpolate message to get dense trajectory
 
