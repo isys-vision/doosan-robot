@@ -28,7 +28,6 @@ SET( SERIAL_SRC_FILES
   ../common/src/dsr_serial.cpp
 )
 
-
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
@@ -40,8 +39,6 @@ SET( SRC_FILES
   src/dsr_hw_interface.cpp
   src/dsr_control_node.cpp
 )
-
-LINK_LIBRARIES(DRFL PocoFoundation PocoNet)
 
 if($ENV{ROS_DISTRO} STREQUAL "kinetic")
   # check OS 32bit or 64bit ?  
