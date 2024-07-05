@@ -38,8 +38,6 @@
   <build_depend>position_controllers</build_depend>
   <build_depend>velocity_controllers</build_depend>
   <build_depend>effort_controllers</build_depend>
-  <build_depend>ros_control</build_depend>
-  <build_depend>ros_controllers</build_depend>
   <build_depend>gazebo_ros_control</build_depend>
   <build_depend>moveit_commander</build_depend>
   <build_depend>moveit_core</build_depend>
