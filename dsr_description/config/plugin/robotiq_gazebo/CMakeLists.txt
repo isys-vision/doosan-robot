@@ -1,4 +1,4 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.22.0)
 PROJECT(robotiq_gazebo)
 
 FIND_PACKAGE(catkin REQUIRED COMPONENTS 
