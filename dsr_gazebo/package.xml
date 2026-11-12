@@ -14,8 +14,11 @@
   <url type="website">http://wiki.ros.org/doosan_robotics</url>
 
   <buildtool_depend>catkin</buildtool_depend>
-  <depend>gazebo_ros</depend>
-  <depend>gazebo_ros_control</depend>
+  <!-- gazebo_ros / gazebo_ros_control are only needed at runtime for the
+       simulation; they are not build dependencies, so the package keeps
+       building in environments without the Gazebo stack (e.g. CI images). -->
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>gazebo_ros_control</exec_depend>
   <depend>controller_manager</depend>
   <depend>xacro</depend>
   <depend>urdf</depend>
