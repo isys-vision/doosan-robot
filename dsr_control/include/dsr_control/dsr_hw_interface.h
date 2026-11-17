@@ -541,7 +541,7 @@ namespace dsr_control{
         static void OnTpInitializingCompletedCB();
 
         static void OnMonitoringCtrlIOCB (const LPMONITORING_CTRLIO pCtrlIO);
-        static void OnMonitoringCtrlIOExCB (const LPMONITORING_CTRLIO_EX pCtrlIO);
+        static void OnMonitoringCtrlIOExCB (const LPMONITORING_CTRLIO_EX2 pCtrlIO);
         static void OnMonitoringModbusCB (const LPMONITORING_MODBUS pModbus);
         static void OnMonitoringStateCB(const ROBOT_STATE eState);
         static void OnMonitoringAccessControlCB(const MONITORING_ACCESS_CONTROL eAccCtrl);

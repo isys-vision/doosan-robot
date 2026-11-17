@@ -300,7 +300,7 @@ namespace dsr_control{
         }
     }
     // M2.5 or higher
-    void DRHWInterface::OnMonitoringCtrlIOExCB (const LPMONITORING_CTRLIO_EX pCtrlIO)
+    void DRHWInterface::OnMonitoringCtrlIOExCB (const LPMONITORING_CTRLIO_EX2 pCtrlIO)
     {
         //ROS_INFO("DRHWInterface::OnMonitoringCtrlIOExCB");
 
