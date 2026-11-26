@@ -1,39 +1,22 @@
 /*********************************************************************
  *
- * class of doosan robot control 
- * Author: Kab Kyoum Kim (kabkyoum.kim@doosan.com)
+ * dsr_common2
+ * Author: Minsoo Song (minsoo.song@doosan.com)
  *
- * Software License Agreement (BSD License)
+ * Copyright (c) 2025 Doosan Robotics
  *
- *  Copyright (c) 2019, Doosan Robotics
- *  All rights reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *  Redistribution and use in source and binary forms, with or without
- *  modification, are permitted provided that the following conditions
- *  are met:
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- *   * Redistributions of source code must retain the above copyright
- *     notice, this list of conditions and the following disclaimer.
- *   * Redistributions in binary form must reproduce the above
- *     copyright notice, this list of conditions and the following
- *     disclaimer in the documentation and/or other materials provided
- *     with the distribution.
- *   * Neither the name of the Georgia Institute of Technology nor the names of
- *     its contributors may be used to endorse or promote products derived
- *     from this software without specific prior written permission.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
- *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- *  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- *  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
- *  FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
- *  COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
- *  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
- *  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- *  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- *  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- *  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- *  POSSIBILITY OF SUCH DAMAGE.
  *********************************************************************/
 
 #ifndef __DSR_ROBOT_H__
@@ -49,126 +32,126 @@
 #include <string>
 #include <iostream>
 
-#include <dsr_msgs/RobotError.h>
-#include <dsr_msgs/RobotState.h>
-#include <dsr_msgs/RobotStop.h>
-#include <dsr_msgs/ModbusState.h>
+#include <dsr_msgs2/RobotError.h>
+#include <dsr_msgs2/RobotState.h>
+#include <dsr_msgs2/RobotStop.h>
+#include <dsr_msgs2/ModbusState.h>
 
-#include <dsr_msgs/SetRobotMode.h>
-#include <dsr_msgs/GetRobotMode.h>
-#include <dsr_msgs/SetRobotSystem.h>
-#include <dsr_msgs/GetRobotSystem.h>
-#include <dsr_msgs/SetRobotSpeedMode.h>
-#include <dsr_msgs/GetRobotSpeedMode.h>
-#include <dsr_msgs/SetSafeStopResetType.h>
-#include <dsr_msgs/GetCurrentPose.h>
-//#include <dsr_msgs/GetLastAlarm.h>
+#include <dsr_msgs2/SetRobotMode.h>
+#include <dsr_msgs2/GetRobotMode.h>
+#include <dsr_msgs2/SetRobotSystem.h>
+#include <dsr_msgs2/GetRobotSystem.h>
+#include <dsr_msgs2/SetRobotSpeedMode.h>
+#include <dsr_msgs2/GetRobotSpeedMode.h>
+#include <dsr_msgs2/SetSafeStopResetType.h>
+#include <dsr_msgs2/GetCurrentPose.h>
+//#include <dsr_msgs2/GetLastAlarm.h>
 
-#include <dsr_msgs/MoveJoint.h>
-#include <dsr_msgs/MoveLine.h>
-#include <dsr_msgs/MoveJointx.h>
-#include <dsr_msgs/MoveCircle.h>
-#include <dsr_msgs/MoveSplineJoint.h>
-#include <dsr_msgs/MoveSplineTask.h>
-#include <dsr_msgs/MoveBlending.h>
-#include <dsr_msgs/MoveSpiral.h>
-#include <dsr_msgs/MovePeriodic.h>
-#include <dsr_msgs/MoveWait.h>
-#include <dsr_msgs/Jog.h>
-#include <dsr_msgs/JogMulti.h>
-#include <dsr_msgs/Trans.h>
-#include <dsr_msgs/Fkin.h>
-#include <dsr_msgs/Ikin.h>
-#include <dsr_msgs/SetRefCoord.h>
-#include <dsr_msgs/MoveHome.h>
-#include <dsr_msgs/CheckMotion.h>
-#include <dsr_msgs/ChangeOperationSpeed.h>
-#include <dsr_msgs/EnableAlterMotion.h>
-#include <dsr_msgs/AlterMotion.h>
-#include <dsr_msgs/DisableAlterMotion.h>
-#include <dsr_msgs/SetSingularityHandling.h>
+#include <dsr_msgs2/MoveJoint.h>
+#include <dsr_msgs2/MoveLine.h>
+#include <dsr_msgs2/MoveJointx.h>
+#include <dsr_msgs2/MoveCircle.h>
+#include <dsr_msgs2/MoveSplineJoint.h>
+#include <dsr_msgs2/MoveSplineTask.h>
+#include <dsr_msgs2/MoveBlending.h>
+#include <dsr_msgs2/MoveSpiral.h>
+#include <dsr_msgs2/MovePeriodic.h>
+#include <dsr_msgs2/MoveWait.h>
+#include <dsr_msgs2/Jog.h>
+#include <dsr_msgs2/JogMulti.h>
+#include <dsr_msgs2/Trans.h>
+#include <dsr_msgs2/Fkin.h>
+#include <dsr_msgs2/Ikin.h>
+#include <dsr_msgs2/SetRefCoord.h>
+#include <dsr_msgs2/MoveHome.h>
+#include <dsr_msgs2/CheckMotion.h>
+#include <dsr_msgs2/ChangeOperationSpeed.h>
+#include <dsr_msgs2/EnableAlterMotion.h>
+#include <dsr_msgs2/AlterMotion.h>
+#include <dsr_msgs2/DisableAlterMotion.h>
+#include <dsr_msgs2/SetSingularityHandling.h>
 
-#include <dsr_msgs/GetControlMode.h>          
-#include <dsr_msgs/GetControlSpace.h>         
-#include <dsr_msgs/GetCurrentPosj.h>          
-#include <dsr_msgs/GetCurrentVelj.h>          
-#include <dsr_msgs/GetDesiredPosj.h>
-#include <dsr_msgs/GetDesiredVelj.h>          
-#include <dsr_msgs/GetCurrentPosx.h>          
-#include <dsr_msgs/GetCurrentToolFlangePosx.h>
-#include <dsr_msgs/GetCurrentVelx.h>          
-#include <dsr_msgs/GetDesiredPosx.h>
-#include <dsr_msgs/GetDesiredVelx.h>          
-#include <dsr_msgs/GetCurrentSolutionSpace.h> 
-#include <dsr_msgs/GetCurrentRotm.h>          
-#include <dsr_msgs/GetJointTorque.h>          
-#include <dsr_msgs/GetExternalTorque.h>      
-#include <dsr_msgs/GetToolForce.h>            
-#include <dsr_msgs/GetSolutionSpace.h>
-#include <dsr_msgs/GetOrientationError.h>
+#include <dsr_msgs2/GetControlMode.h>          
+#include <dsr_msgs2/GetControlSpace.h>         
+#include <dsr_msgs2/GetCurrentPosj.h>          
+#include <dsr_msgs2/GetCurrentVelj.h>          
+#include <dsr_msgs2/GetDesiredPosj.h>
+#include <dsr_msgs2/GetDesiredVelj.h>          
+#include <dsr_msgs2/GetCurrentPosx.h>          
+#include <dsr_msgs2/GetCurrentToolFlangePosx.h>
+#include <dsr_msgs2/GetCurrentVelx.h>          
+#include <dsr_msgs2/GetDesiredPosx.h>
+#include <dsr_msgs2/GetDesiredVelx.h>          
+#include <dsr_msgs2/GetCurrentSolutionSpace.h> 
+#include <dsr_msgs2/GetCurrentRotm.h>          
+#include <dsr_msgs2/GetJointTorque.h>          
+#include <dsr_msgs2/GetExternalTorque.h>      
+#include <dsr_msgs2/GetToolForce.h>            
+#include <dsr_msgs2/GetSolutionSpace.h>
+#include <dsr_msgs2/GetOrientationError.h>
 
-#include <dsr_msgs/ParallelAxis1.h>
-#include <dsr_msgs/ParallelAxis2.h>
-#include <dsr_msgs/AlignAxis1.h>
-#include <dsr_msgs/AlignAxis2.h>
-#include <dsr_msgs/IsDoneBoltTightening.h>
-#include <dsr_msgs/ReleaseComplianceCtrl.h>
-#include <dsr_msgs/TaskComplianceCtrl.h>
-#include <dsr_msgs/SetStiffnessx.h>
-#include <dsr_msgs/CalcCoord.h>
-#include <dsr_msgs/SetUserCartCoord1.h>
-#include <dsr_msgs/SetUserCartCoord2.h>
-#include <dsr_msgs/SetUserCartCoord3.h>
-#include <dsr_msgs/OverwriteUserCartCoord.h>
-#include <dsr_msgs/GetUserCartCoord.h>
-#include <dsr_msgs/SetDesiredForce.h>
-#include <dsr_msgs/ReleaseForce.h>
-#include <dsr_msgs/CheckPositionCondition.h>
-#include <dsr_msgs/CheckForceCondition.h>
-#include <dsr_msgs/CheckOrientationCondition1.h>
-#include <dsr_msgs/CheckOrientationCondition2.h>
-#include <dsr_msgs/CoordTransform.h>
-#include <dsr_msgs/GetWorkpieceWeight.h>
-#include <dsr_msgs/ResetWorkpieceWeight.h>
+#include <dsr_msgs2/ParallelAxis1.h>
+#include <dsr_msgs2/ParallelAxis2.h>
+#include <dsr_msgs2/AlignAxis1.h>
+#include <dsr_msgs2/AlignAxis2.h>
+#include <dsr_msgs2/IsDoneBoltTightening.h>
+#include <dsr_msgs2/ReleaseComplianceCtrl.h>
+#include <dsr_msgs2/TaskComplianceCtrl.h>
+#include <dsr_msgs2/SetStiffnessx.h>
+#include <dsr_msgs2/CalcCoord.h>
+#include <dsr_msgs2/SetUserCartCoord1.h>
+#include <dsr_msgs2/SetUserCartCoord2.h>
+#include <dsr_msgs2/SetUserCartCoord3.h>
+#include <dsr_msgs2/OverwriteUserCartCoord.h>
+#include <dsr_msgs2/GetUserCartCoord.h>
+#include <dsr_msgs2/SetDesiredForce.h>
+#include <dsr_msgs2/ReleaseForce.h>
+#include <dsr_msgs2/CheckPositionCondition.h>
+#include <dsr_msgs2/CheckForceCondition.h>
+#include <dsr_msgs2/CheckOrientationCondition1.h>
+#include <dsr_msgs2/CheckOrientationCondition2.h>
+#include <dsr_msgs2/CoordTransform.h>
+#include <dsr_msgs2/GetWorkpieceWeight.h>
+#include <dsr_msgs2/ResetWorkpieceWeight.h>
 
 
-#include <dsr_msgs/ConfigCreateTcp.h>
-#include <dsr_msgs/ConfigDeleteTcp.h>
-#include <dsr_msgs/GetCurrentTcp.h>
-#include <dsr_msgs/SetCurrentTcp.h>
+#include <dsr_msgs2/ConfigCreateTcp.h>
+#include <dsr_msgs2/ConfigDeleteTcp.h>
+#include <dsr_msgs2/GetCurrentTcp.h>
+#include <dsr_msgs2/SetCurrentTcp.h>
 
-#include <dsr_msgs/SetCurrentTool.h>
-#include <dsr_msgs/GetCurrentTool.h>
-#include <dsr_msgs/ConfigCreateTool.h>
-#include <dsr_msgs/ConfigDeleteTool.h>
-#include <dsr_msgs/SetToolShape.h>
+#include <dsr_msgs2/SetCurrentTool.h>
+#include <dsr_msgs2/GetCurrentTool.h>
+#include <dsr_msgs2/ConfigCreateTool.h>
+#include <dsr_msgs2/ConfigDeleteTool.h>
+#include <dsr_msgs2/SetToolShape.h>
 
-#include <dsr_msgs/SetCtrlBoxDigitalOutput.h>
-#include <dsr_msgs/GetCtrlBoxDigitalInput.h>
-#include <dsr_msgs/SetToolDigitalOutput.h>
-#include <dsr_msgs/GetToolDigitalInput.h>
-#include <dsr_msgs/SetCtrlBoxAnalogOutput.h>
-#include <dsr_msgs/GetCtrlBoxAnalogInput.h>
-#include <dsr_msgs/SetCtrlBoxAnalogOutputType.h>
-#include <dsr_msgs/SetCtrlBoxAnalogInputType.h>
-#include <dsr_msgs/GetCtrlBoxDigitalOutput.h>
-#include <dsr_msgs/GetToolDigitalOutput.h>
+#include <dsr_msgs2/SetCtrlBoxDigitalOutput.h>
+#include <dsr_msgs2/GetCtrlBoxDigitalInput.h>
+#include <dsr_msgs2/SetToolDigitalOutput.h>
+#include <dsr_msgs2/GetToolDigitalInput.h>
+#include <dsr_msgs2/SetCtrlBoxAnalogOutput.h>
+#include <dsr_msgs2/GetCtrlBoxAnalogInput.h>
+#include <dsr_msgs2/SetCtrlBoxAnalogOutputType.h>
+#include <dsr_msgs2/SetCtrlBoxAnalogInputType.h>
+#include <dsr_msgs2/GetCtrlBoxDigitalOutput.h>
+#include <dsr_msgs2/GetToolDigitalOutput.h>
 
-#include <dsr_msgs/SetModbusOutput.h>
-#include <dsr_msgs/GetModbusInput.h>
-#include <dsr_msgs/ConfigCreateModbus.h>
-#include <dsr_msgs/ConfigDeleteModbus.h>
+#include <dsr_msgs2/SetModbusOutput.h>
+#include <dsr_msgs2/GetModbusInput.h>
+#include <dsr_msgs2/ConfigCreateModbus.h>
+#include <dsr_msgs2/ConfigDeleteModbus.h>
 
-#include <dsr_msgs/DrlPause.h>
-#include <dsr_msgs/DrlStart.h>
-#include <dsr_msgs/DrlStop.h>
-#include <dsr_msgs/DrlResume.h>
-#include <dsr_msgs/GetDrlState.h>
+#include <dsr_msgs2/DrlPause.h>
+#include <dsr_msgs2/DrlStart.h>
+#include <dsr_msgs2/DrlStop.h>
+#include <dsr_msgs2/DrlResume.h>
+#include <dsr_msgs2/GetDrlState.h>
 
-#include <dsr_msgs/Robotiq2FOpen.h>
-#include <dsr_msgs/Robotiq2FClose.h>
-#include <dsr_msgs/Robotiq2FMove.h>
-#include <dsr_msgs/SerialSendData.h>
+#include <dsr_msgs2/Robotiq2FOpen.h>
+#include <dsr_msgs2/Robotiq2FClose.h>
+#include <dsr_msgs2/Robotiq2FMove.h>
+#include <dsr_msgs2/SerialSendData.h>
 
 #include "DRFL.h"
 #include "DRFC.h"
@@ -305,7 +288,7 @@ namespace DSR_Robot{
             int _moveb(MOVE_POSB* fTargetPos, int nPosCount, float fTargetVel[2], float fTargetAcc[2], float fTargetTime, int nMoveReference, int nMoveMode, int nSyncType);
             
             //void thread_subscriber();
-            //void msgRobotState_cb(const dsr_msgs::RobotState::ConstPtr& msg);
+            //void msgRobotState_cb(const dsr_msgs2::RobotState::ConstPtr& msg);
             ///boost::thread m_thread_sub;
 
             std::string m_strSrvNamePrefix;
